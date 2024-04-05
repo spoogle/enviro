@@ -52,5 +52,11 @@ moisture_target_a = 50
 moisture_target_b = 50
 moisture_target_c = 50
 
+# number of secs to water for each percentage difference in moisture level from target
+secs_watering_per_point = 0.2
+
+# Min number of seconds for which to water
+min_watering_secs = 0.5
+
 # compensate for usb power
 usb_power_temperature_offset = 4.5
