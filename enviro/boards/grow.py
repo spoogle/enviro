@@ -75,9 +75,15 @@ def drip_noise():
 def water(moisture_levels):
   from enviro import config
   targets = [
-    config.moisture_target_a, 
+    config.moisture_target_a,
     config.moisture_target_b,
     config.moisture_target_c
+  ]
+
+  watering_secs_per_point = [
+    config.watering_millisecs_per_point_a / 1000.0,
+    config.watering_millisecs_per_point_b / 1000.0,
+    config.watering_millisecs_per_point_c / 1000.0
   ]
 
   pumps = ['pump_a', 'pump_b', 'pump_c']
@@ -85,21 +91,23 @@ def water(moisture_levels):
   for i in range(0, 3):
     if 0.0 < targets[i] and moisture_levels[i] < targets[i]:
       # determine a duration to run the pump for
-      duration = round((targets[i] - moisture_levels[i]) * config.secs_watering_per_point, 1)
+      duration = round((targets[i] - moisture_levels[i]) * watering_secs_per_point[i] , 1)
 
       logging.info(f"> sensor {CHANNEL_NAMES[i]} below moisture target {targets[i]} (currently at {int(moisture_levels[i])}).")
 
       if config.auto_water:
-        if duration > config.min_watering_secs:
+        if config.min_watering_secs < duration < config.max_watering_secs:
           logging.info(f"  - running pump {CHANNEL_NAMES[i]} for {duration} second(s)")
           watering_times[pumps[i]] = duration
           pump_pins[i].value(1)
           time.sleep(duration)
           pump_pins[i].value(0)
-        else:
+        elif duration < config.min_watering_secs:
           watering_times[pumps[i]] = 0.0
           logging.info(f"  - not running pump {CHANNEL_NAMES[i]} - duration {duration} second(s) too short")
-
+        elif duration > config.max_watering_secs:
+          watering_times[pumps[i]] = config.max_watering_secs
+          logging.info(f"  - not running pump {CHANNEL_NAMES[i]} - duration {duration} second(s) too long")
       else:
         logging.info(f"  - playing beep")
         for j in range(0, i + 1):

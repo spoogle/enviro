@@ -48,15 +48,20 @@ influxdb_bucket = None
 
 # grow specific settings
 auto_water = False
-moisture_target_a = 50
-moisture_target_b = 50
-moisture_target_c = 50
+moisture_target_a = 30
+moisture_target_b = 0
+moisture_target_c = 0
 
-# number of secs to water for each percentage difference in moisture level from target
-secs_watering_per_point = 0.2
+# Number of milliseconds to water for each percentage difference in moisture level from target.
+watering_millisecs_per_point_a = 200
+watering_millisecs_per_point_b = 200
+watering_millisecs_per_point_c = 200
 
 # Min number of seconds for which to water
-min_watering_secs = 0.5
+min_watering_secs = 1.0
+
+# Max number of seconds for which to water
+max_watering_secs = 2.0
 
 # compensate for usb power
 usb_power_temperature_offset = 4.5

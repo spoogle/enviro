@@ -40,8 +40,26 @@
       <li data-auto-water="False" > 
         No
       </li>
-    </ul>        
+    </ul>
     <input type="hidden" id="auto_water" name="auto_water" value="{{config.auto_water}}" />
+
+    <h2>Advanced watering settings</h2>
+    <p>Customise watering.</p>
+    <h3>Channel A millisecs per point (percent).</h3>
+    How many milliseconds to run the pump for each percentage point difference of the humidity reading from the target.
+    <fieldset>
+      <input id="watering_millisecs_per_point_a" name="watering_millisecs_per_point_a" type="number" min="0" max="1000" placeholder="e.g. 100" value="{{config.watering_secs_per_point_a}}" />
+    </fieldset>
+    <h3>Channel B millisecs per point (percent).</h3>
+    How many milliseconds to run the pump for each percentage point difference of the humidity reading from the target.
+    <fieldset>
+      <input id="watering_millisecs_per_point_b" name="watering_millisecs_per_point_b" type="number" min="0" max="1000" placeholder="e.g. 100" value="{{config.watering_secs_per_point_b}}" />
+    </fieldset>
+    <h3>Channel C millisecs per point (percent).</h3>
+    How many milliseconds to run the pump for each percentage point difference of the humidity reading from the target.
+    <fieldset>
+      <input id="watering_millisecs_per_point_c" name="watering_millisecs_per_point_c" type="number" min="0" max="1000" placeholder="e.g. 100" value="{{config.watering_secs_per_point_c}}" />
+    </fieldset>
 
     <script>
       function clampTarget(target) {
@@ -77,6 +95,9 @@
       clampTarget("moisture_target_a")
       clampTarget("moisture_target_b")
       clampTarget("moisture_target_c")
+      clampTarget("watering_millisecs_per_point_a")
+      clampTarget("watering_millisecs_per_point_b")
+      clampTarget("watering_millisecs_per_point_c")
       selectAutoWater("{{config.auto_water}}")
     </script>
   </form>
