@@ -62,11 +62,11 @@
     </fieldset>
 
     <script>
-      function clampTarget(target) {
+      function clampTarget(target, upper_limit=100) {
         document.getElementById(target).addEventListener("input", function(e) {
           let caretPos = this.selectionStart
           let value = document.getElementById(target).value
-          let clamped = Math.min(Math.max(parseInt(value), 0), 100)
+          let clamped = Math.min(Math.max(parseInt(value), 0), upper_limit)
           if(clamped != value) {
             caretPos -= 1
           }
@@ -95,9 +95,9 @@
       clampTarget("moisture_target_a")
       clampTarget("moisture_target_b")
       clampTarget("moisture_target_c")
-      clampTarget("watering_millisecs_per_point_a")
-      clampTarget("watering_millisecs_per_point_b")
-      clampTarget("watering_millisecs_per_point_c")
+      clampTarget("watering_millisecs_per_point_a", 1000)
+      clampTarget("watering_millisecs_per_point_b", 1000)
+      clampTarget("watering_millisecs_per_point_c", 1000)
       selectAutoWater("{{config.auto_water}}")
     </script>
   </form>
